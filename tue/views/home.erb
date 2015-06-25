@@ -1,0 +1,22 @@
+
+
+<!DOCTYPE html>
+    <html>
+		<body>
+	   	 	<h2>! SIGN IN !</h2>
+			<form action="/signup" method="post">
+   		    <input name="name" />
+        	<input type="submit" />
+   	 		</form>
+   	    <p>You signed in as: <%= @users[@id] %></p>
+        <p>You are <%=  @users.length %> to subscribe!</p>
+			<h2>List of users : </h2>
+       			<% @users.each do | id, name | %>
+       			    <p><%= name %></p>
+				<% end %> 
+		<p>
+			<a href='/cats'>KITTEN TIMES</a> !
+		</p>
+
+ 		</body>
+    </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+    <html>
+		<body>
+      <% @students.each do |i| %>
+      <ul><li><%= i.name %></li>
+          <li><%= i.surnames %></li>
+          <li><%= i.birthday %></li>
+          <li><%= i.website %></li>
+          <li><%= i.number_of_dogs %> dogs</li>
+          <li><%= i.first_programming_experience %></li>
+      </ul> 
+      <%end%>     
+        <a href='/add'><b>Back to the homepage!</a>
+ 		</body>
+    </html>
