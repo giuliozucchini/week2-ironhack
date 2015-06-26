@@ -2,70 +2,52 @@
 require 'pry'
 require 'imdb'
 require 'rspec'
+require 'launchy'
+require 'sinatra'
+require 'sinatra/reloader'
 
-class Finder
+set :port, 3001
+set :bind, '0.0.0.0'
 
-attr_accessor :title
+movie ||= ""
 
-	def which
-		list = Imdb::Search.new("llorenc").movies[0].title
-		p list
-	end
+#get is load page / will dixit
+get '/start' do
+	erb :start
+end
 
-	def which_plot
-		list = Imdb::Search.new("mind").movies[0].plot
-		p list
-	end
+post '/start' do
+	universe = params[:universe]
+	movie = Imdb::Search.new(universe).movies.sample
+	redirect ('/game')
+end
 
-
-	def how_many
-		number = Imdb::Search.new("mind").movies.size
-		p number
-	end
-
-	def guess_movie_by_plot
-		@movie = Imdb::Search.new("mind").movies.sample
+get '/game' do
+	  @movie = movie
 		@director = @movie.director.to_s
 		@plot = @movie.plot.to_s
-		@title = @movie.title.to_s
-		p "GUESS THE MOVIE!" 
-		p "THE DIRECTOR IS: " + @director
-		p "THE PLOT IS: " + @plot
-		p "What's the name of the movie?"
-	end
+		@title = @movie.title
+		@poster = @movie.poster
+		@trailer = @movie.trailer_url
 
-	def start	
-		text = gets.chomp
-		binding.pry
-    if text == @title
-      puts "BRAVO!" 
+	erb :game
+end
+
+post '/game' do
+	answer = params[:answer]
+  @string = ""
+   if params[:answer] == @title
+       @string = "Bravo!"
+    elsif params[:answer] == "hint"
+      Launchy.open @poster
+    elsif params[:answer] == "solution"
+			@string = "The solution is:{#@title}"
     else
-    	puts "NOPE! Try again."
-      start
+    	@string = "NOPE...! ! Try again ! ! "
     end        
-  end      
+	erb :game
 end
 
 
-finder = Finder.new
-# finder.how_many
-# finder.which
-# finder.which_plot
-finder.guess_movie_by_plot
-finder.start
 
 
-
-# describe Finder do 
-#   before do
-#     @finder = Finder.new
-# 	end
-
-
-#   describe "how_many" do 
-#     it "should say how many" do
-#       result = @finder.how_many 
-#       expect(result).to be > 10
-#     end
-#   end
-# end

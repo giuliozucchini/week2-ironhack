@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+    <html>
+		<body>
+			<h1><b>| GUESS THE MOVIE |</b></h1>
+			<p>THE DIRECTOR IS: <%= @director %></p>
+			<p>THE PLOT IS: <%= @plot %></p>
+		    <p>What's the name of the movie? Click 'hint' for help!</p>
+		    <form action="/game" method="post">
+            <input type="text" name="answer" /> 
+            <input type = "submit">
+           	<b><%= @string %></b>
+            </form>
+ 		</body>
+    </html>
+
+
+
+  

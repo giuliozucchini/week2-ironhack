@@ -38,6 +38,11 @@ class Numbermaster
 
 	end
 
+	def super_cal(numbers)
+		results = []
+		results << mode(numbers)
+ 	end
+
 	private
 
 	def return_pos_neg(numbers)
@@ -58,6 +63,23 @@ class Numbermaster
 	def clean(numbers)
 		numbers.select { |n| n.is_a?(Numeric)}
 	end
+
+	def mode(numbers)
+		count = Hash.new(0)
+		results = []
+		numbers.each {|n| count[n] += 1}
+		count.sort_by { |k,v| v }.reverse
+	end
+
+	def median(numbers)
+		
+	end
+
+	def mean(numbers)
+		
+	end
+
+
 end
 
 
@@ -105,4 +127,22 @@ describe Numbermaster do
 				)).to eq nil
 		end	
 	end
-end
+
+	describe "#super_cal" do
+		it "should return the mode for only the first result " do
+			expect(@master.super_cal([2, 4, 6, 6, 1])[0]).to eq(6)
+			end
+		
+		end
+end		
+
+
+# median, mean, size & emptiness
+
+
+
+
+
+
+
+
