@@ -39,7 +39,7 @@ post '/game' do
    if params[:answer] == @title
        @string = "Bravo!"
     elsif params[:answer] == "hint"
-      Launchy.open @poster
+      open @poster
     elsif params[:answer] == "solution"
 			@string = "The solution is:{#@title}"
     else
